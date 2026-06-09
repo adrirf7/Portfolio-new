@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #0a0a0a;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Grid background pattern */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Section label style */
+.section-label {
+  @apply flex items-center gap-3 text-xs tracking-widest2 text-muted uppercase font-body font-medium;
+}
+.section-label::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background-color: #888;
+}
+
+/* Split heading: bold black + lighter gray */
+.heading-split {
+  @apply font-display text-5xl font-black leading-tight;
+}
+.heading-split .gray {
+  @apply text-muted font-bold;
+}
+
+/* Pill button */
+.btn-fill {
+  @apply inline-flex items-center gap-2 bg-primary text-white text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-zinc-800 font-body;
+}
+.btn-outline {
+  @apply inline-flex items-center gap-2 border border-primary text-primary text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-primary hover:text-white font-body;
+}
+
+/* Tag pill */
+.tag-pill {
+  @apply border border-zinc-300 text-sm text-primary px-4 py-2 rounded-xl font-body font-medium tracking-wide hover:border-primary transition-colors duration-200 cursor-default;
+}
+
+/* Nav link */
+.nav-link {
+  @apply text-xs tracking-widest uppercase font-semibold text-primary transition-colors duration-200 hover:text-muted font-body;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+/* GSAP initial states */
+.gsap-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+}
