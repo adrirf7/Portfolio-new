@@ -22,6 +22,12 @@ body {
   color: #0a0a0a;
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #0c0c0c;
+  color: #f0f0f0;
 }
 
 /* Grid background pattern */
@@ -32,58 +38,53 @@ body {
   background-size: 80px 80px;
 }
 
+.dark .grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
 /* Section label style */
 .section-label {
-  @apply flex items-center gap-3 text-xs tracking-widest2 text-muted uppercase font-body font-medium;
+  @apply flex items-center gap-3 text-xs tracking-widest text-zinc-400 uppercase font-body font-medium;
 }
 .section-label::before {
   content: "";
   display: inline-block;
   width: 28px;
   height: 1px;
-  background-color: #888;
+  @apply bg-zinc-400;
 }
 
-/* Split heading: bold black + lighter gray */
+/* Split heading */
 .heading-split {
-  @apply font-display text-5xl font-black leading-tight;
+  @apply font-display text-5xl font-black leading-tight text-zinc-900 dark:text-zinc-100;
 }
 .heading-split .gray {
-  @apply text-muted font-bold;
+  @apply text-zinc-400 font-bold;
 }
 
-/* Pill button */
+/* Pill buttons */
 .btn-fill {
-  @apply inline-flex items-center gap-2 bg-primary text-white text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-zinc-800 font-body;
+  @apply inline-flex items-center gap-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-zinc-700 dark:hover:bg-zinc-300 font-body;
 }
 .btn-outline {
-  @apply inline-flex items-center gap-2 border border-primary text-primary text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-primary hover:text-white font-body;
+  @apply inline-flex items-center gap-2 border border-zinc-900 text-zinc-900 dark:border-zinc-100 dark:text-zinc-100 text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 font-body;
 }
 
 /* Tag pill */
 .tag-pill {
-  @apply border border-zinc-300 text-sm text-primary px-4 py-2 rounded-xl font-body font-medium tracking-wide hover:border-primary transition-colors duration-200 cursor-default;
+  @apply border border-zinc-300 dark:border-zinc-700 text-sm text-zinc-900 dark:text-zinc-100 px-4 py-2 rounded-xl font-body font-medium tracking-wide hover:border-zinc-900 dark:hover:border-zinc-300 transition-colors duration-200 cursor-default;
 }
 
 /* Nav link */
 .nav-link {
-  @apply text-xs tracking-widest uppercase font-semibold text-primary transition-colors duration-200 hover:text-muted font-body;
+  @apply text-xs tracking-widest uppercase font-semibold text-zinc-900 dark:text-zinc-100 transition-colors duration-200 hover:text-zinc-400 font-body;
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 2px;
-}
-
-/* GSAP initial states */
-.gsap-hidden {
-  opacity: 0;
-  transform: translateY(30px);
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+.dark ::-webkit-scrollbar-track { background: #1a1a1a; }
+.dark ::-webkit-scrollbar-thumb { background: #444; }
