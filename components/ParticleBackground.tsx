@@ -11,11 +11,10 @@ interface Particle {
   r: number;
 }
 
-const COUNT_DESKTOP = 30;
-const COUNT_MOBILE  = 18;
-const MAX_DIST      = 130;
-const MAX_DIST_SQ   = MAX_DIST * MAX_DIST;
-const SPEED         = 0.35;
+const COUNT       = 50;
+const MAX_DIST    = 120;
+const MAX_DIST_SQ = MAX_DIST * MAX_DIST;
+const SPEED       = 0.4;
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,62 +28,55 @@ export default function ParticleBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !mounted) return;
+
+    // Solo activar en desktop (≥768px)
+    if (window.innerWidth < 768) return;
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const w   = canvas.offsetWidth  || window.innerWidth;
-      const h   = canvas.offsetHeight || window.innerHeight;
-      canvas.width  = w * dpr;
-      canvas.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
     resize();
 
-    const isMobile = window.innerWidth < 768;
-    const count = isMobile ? COUNT_MOBILE : COUNT_DESKTOP;
-
-    particles.current = [];
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    for (let i = 0; i < count; i++) {
-      particles.current.push({
-        x:  Math.random() * w,
-        y:  Math.random() * h,
-        vx: (Math.random() - 0.5) * SPEED * 2,
-        vy: (Math.random() - 0.5) * SPEED * 2,
-        r:  Math.random() * 1.0 + 0.8,
-      });
+    if (particles.current.length === 0) {
+      for (let i = 0; i < COUNT; i++) {
+        particles.current.push({
+          x:  Math.random() * canvas.width,
+          y:  Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * SPEED * 2,
+          vy: (Math.random() - 0.5) * SPEED * 2,
+          r:  Math.random() * 1.2 + 1,
+        });
+      }
     }
 
-    const onResize = () => {
-      resize();
-    };
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", resize);
 
     const isDark    = resolvedTheme === "dark";
-    const dotColor  = isDark ? "rgba(255,255,255,0.45)"  : "rgba(74,124,106,0.4)";
-    const lineColor = isDark ? "rgba(255,255,255,0.10)"  : "rgba(74,124,106,0.12)";
+    const dotColor  = isDark ? "rgba(255,255,255,0.5)"   : "rgba(74,124,106,0.45)";
+    const lineColor = isDark ? "rgba(255,255,255,0.12)"  : "rgba(74,124,106,0.14)";
 
     const draw = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const cw  = canvas.width  / dpr;
-      const ch  = canvas.height / dpr;
-      ctx.clearRect(0, 0, cw, ch);
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
 
       const ps = particles.current;
 
       for (const p of ps) {
         p.x += p.vx;
         p.y += p.vy;
-        if (p.x < 0 || p.x > cw) p.vx *= -1;
-        if (p.y < 0 || p.y > ch) p.vy *= -1;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
       }
 
+      // All lines in a single path
       ctx.beginPath();
       ctx.strokeStyle = lineColor;
-      ctx.lineWidth   = 0.5;
+      ctx.lineWidth   = 0.6;
       for (let i = 0; i < ps.length; i++) {
         for (let j = i + 1; j < ps.length; j++) {
           const dx = ps[i].x - ps[j].x;
@@ -97,6 +89,7 @@ export default function ParticleBackground() {
       }
       ctx.stroke();
 
+      // All dots in a single path
       ctx.beginPath();
       ctx.fillStyle = dotColor;
       for (const p of ps) {
@@ -112,7 +105,7 @@ export default function ParticleBackground() {
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", resize);
     };
   }, [mounted, resolvedTheme]);
 
@@ -121,7 +114,7 @@ export default function ParticleBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
+      className="fixed inset-0 pointer-events-none hidden md:block"
       style={{ zIndex: 0 }}
     />
   );
