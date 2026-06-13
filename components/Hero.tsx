@@ -73,7 +73,7 @@ export default function Hero() {
       <div ref={firstName1Ref} className="opacity-0 relative z-10">
         <h1
           className="name-drift-a font-display font-black uppercase leading-none"
-          style={{ fontSize: "clamp(4rem, 18vw, 18rem)", lineHeight: 0.85 }}
+          style={{ fontSize: "clamp(2.8rem, 18vw, 18rem)", lineHeight: 0.85 }}
         >
           Adrian
         </h1>
@@ -81,7 +81,7 @@ export default function Hero() {
       <div ref={lastName1Ref} className="opacity-0 relative z-10">
         <h1
           className="name-drift-b font-display font-black uppercase leading-none"
-          style={{ fontSize: "clamp(3rem, 12vw, 12rem)", lineHeight: 0.9 }}
+          style={{ fontSize: "clamp(2rem, 12vw, 12rem)", lineHeight: 0.9 }}
         >
           Rodriguez
         </h1>

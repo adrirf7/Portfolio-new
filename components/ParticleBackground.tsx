@@ -33,14 +33,12 @@ export default function ParticleBackground() {
     if (!ctx) return;
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const w   = window.innerWidth;
-      const h   = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w   = canvas.offsetWidth  || window.innerWidth;
+      const h   = canvas.offsetHeight || window.innerHeight;
       canvas.width  = w * dpr;
       canvas.height = h * dpr;
-      canvas.style.width  = `${w}px`;
-      canvas.style.height = `${h}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
 
@@ -70,8 +68,9 @@ export default function ParticleBackground() {
     const lineColor = isDark ? "rgba(255,255,255,0.10)"  : "rgba(74,124,106,0.12)";
 
     const draw = () => {
-      const cw = window.innerWidth;
-      const ch = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const cw  = canvas.width  / dpr;
+      const ch  = canvas.height / dpr;
       ctx.clearRect(0, 0, cw, ch);
 
       const ps = particles.current;

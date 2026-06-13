@@ -82,7 +82,7 @@ export default function Navbar() {
       {menuOpen && (
         <div
           className="fixed z-40 md:hidden bg-white dark:bg-zinc-950 flex flex-col items-center justify-center gap-8"
-          style={{ top: 0, left: 0, width: "100vw", height: "100vh", overflow: "hidden" }}
+          style={{ top: 0, left: 0, right: 0, bottom: 0, overflow: "hidden" }}
         >
           {NAV_LINKS.map((link) => (
             <a

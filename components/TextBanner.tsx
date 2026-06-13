@@ -34,7 +34,7 @@ function BannerRow({ reverse = false }: { reverse?: boolean }) {
 
 export default function TextBanner() {
   return (
-    <div className="border-y border-zinc-200 dark:border-zinc-800 py-4 flex flex-col gap-3 transition-colors duration-300">
+    <div className="border-y border-zinc-200 dark:border-zinc-800 py-4 flex flex-col gap-3 transition-colors duration-300 overflow-hidden w-full">
       <BannerRow />
       <BannerRow reverse />
     </div>
