@@ -3,29 +3,30 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/ThemeProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// icon: icono único · iconLight/iconDark: variantes por tema
 const SKILLS: { name: string; icon?: string; iconLight?: string; iconDark?: string }[] = [
-  { name: "HTML5",        icon: "html5.svg"                                                            },
-  { name: "CSS3",         icon: "css_old.svg"                                                          },
-  { name: "JavaScript",   icon: "javascript.svg"                                                       },
-  { name: "TypeScript",   icon: "typescript.svg"                                                       },
-  { name: "Node.js",      icon: "nodejs.svg"                                                           },
-  { name: "Java",         icon: "java.svg"                                                             },
-  { name: "React",        iconLight: "react_light.svg",        iconDark: "react_dark.svg"              },
-  { name: "React Native", iconLight: "react_light.svg",        iconDark: "react_dark.svg"              },
-  { name: "Astro",        iconLight: "astro-icon-light.svg",   iconDark: "astro-icon-dark.svg"         },
-  { name: "Tailwind",     icon: "tailwindcss.svg"                                                      },
-  { name: "Bootstrap",    icon: "bootstrap.svg"                                                        },
-  { name: "Expo",         iconLight: "expo.svg",               iconDark: "expo_light.svg"             },
-  { name: "MySQL",        iconLight: "mysql-icon-light.svg",    iconDark: "mysql-icon-dark.svg"        },
-  { name: "MongoDB",      icon: "mongodb-icon-dark.svg"                                              },
-  { name: "Firebase",     icon: "firebase.svg"                                                         },
-  { name: "Vite",         icon: "vite.svg"                                                             },
-  { name: "Git",          icon: "git.svg"                                                              },
+  { name: "HTML5",        icon: "html5.svg"                                                  },
+  { name: "CSS3",         icon: "css_old.svg"                                                },
+  { name: "JavaScript",   icon: "javascript.svg"                                             },
+  { name: "TypeScript",   icon: "typescript.svg"                                             },
+  { name: "Node.js",      icon: "nodejs.svg"                                                 },
+  { name: "Java",         icon: "java.svg"                                                   },
+  { name: "React",        iconLight: "react_light.svg",       iconDark: "react_dark.svg"     },
+  { name: "Next.js",    iconLight: "nextjs_icon_dark.svg",  iconDark: "nextjs_icon_dark.svg"},
+  { name: "React Native", iconLight: "react_light.svg",       iconDark: "react_dark.svg"     },
+  { name: "Astro",        iconLight: "astro-icon-light.svg",  iconDark: "astro-icon-dark.svg"},
+  { name: "Tailwind",     icon: "tailwindcss.svg"                                            },
+  { name: "Bootstrap",    icon: "bootstrap.svg"                                              },
+  { name: "Expo",         iconLight: "expo.svg",              iconDark: "expo_light.svg"     },
+  { name: "MySQL",        iconLight: "mysql-icon-light.svg",  iconDark: "mysql-icon-dark.svg"},
+  { name: "MongoDB",      icon: "mongodb-icon-dark.svg"                                      },
+  { name: "Firebase",     icon: "firebase.svg"                                               },
+  { name: "Vite",         icon: "vite.svg"                                                   },
+  { name: "Git",          icon: "git.svg"                                                    },
+  { name: "OpenRouter",   iconLight: "OpenRouter_light.svg", iconDark: "OpenRouter_dark.svg" },
 ];
 
 function SkillPill({ name, icon, iconLight, iconDark }: (typeof SKILLS)[number]) {
@@ -52,7 +53,7 @@ function SkillPill({ name, icon, iconLight, iconDark }: (typeof SKILLS)[number])
   return (
     <span
       ref={pillRef}
-      className="tag-pill flex items-center gap-2"
+      className="tag-pill flex items-center gap-2 shrink-0"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -72,7 +73,6 @@ function SkillPill({ name, icon, iconLight, iconDark }: (typeof SKILLS)[number])
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
-  const pillsRef   = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -85,11 +85,11 @@ export default function Skills() {
         }
       );
       gsap.fromTo(
-        pillsRef.current!.children,
-        { opacity: 0, y: 25, scale: 0.95 },
+        ".skill-pill-item",
+        { opacity: 0, y: 20 },
         {
-          opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.05, ease: "power2.out",
-          scrollTrigger: { trigger: pillsRef.current, start: "top 80%" },
+          opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power2.out",
+          scrollTrigger: { trigger: ".skills-grid", start: "top 85%" },
         }
       );
     }, sectionRef);
@@ -100,16 +100,18 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 bg-white dark:bg-zinc-950 transition-colors duration-300"
+      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
     >
       <p className="section-label skills-label mb-4">Inventory</p>
-      <h2 className="heading-split skills-label mb-8">
+      <h2 className="heading-split skills-label mb-10">
         Tech <span className="gray">Stack</span>
       </h2>
 
-      <div ref={pillsRef} className="flex flex-wrap gap-3 max-w-4xl">
+      <div className="skills-grid flex flex-wrap gap-3">
         {SKILLS.map((skill) => (
-          <SkillPill key={skill.name} {...skill} />
+          <div key={skill.name} className="skill-pill-item opacity-0">
+            <SkillPill {...skill} />
+          </div>
         ))}
       </div>
     </section>

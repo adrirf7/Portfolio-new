@@ -30,18 +30,9 @@ body {
   color: #f0f0f0;
 }
 
-/* Grid background pattern */
+/* Sections are transparent so the canvas particle background shows through */
 .grid-bg {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-  background-size: 80px 80px;
-}
-
-.dark .grid-bg {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-color: transparent;
 }
 
 /* Section label style */
@@ -75,6 +66,139 @@ body {
 /* Tag pill */
 .tag-pill {
   @apply border border-zinc-300 dark:border-zinc-700 text-sm text-zinc-900 dark:text-zinc-100 px-4 py-2 rounded-xl font-body font-medium tracking-wide hover:border-zinc-900 dark:hover:border-zinc-300 transition-colors duration-200 cursor-default;
+}
+
+/* ── Name shimmer + drift ─────────────────────────────────────────────────── */
+
+/* shimmer-pos animates background-position; name-drift-* animates transform.
+   Declared together in one animation: so neither overrides the other. */
+@keyframes shimmer-pos {
+  from { background-position: 110% center; }
+  to   { background-position: -110% center; }
+}
+@keyframes name-drift-a {
+  0%, 100% { transform: translate(0px,  0px);  }
+  50%       { transform: translate(18px, 10px); }
+}
+@keyframes name-drift-b {
+  0%, 100% { transform: translate(0px,   0px);  }
+  50%       { transform: translate(-12px, -7px); }
+}
+
+/* background-image (not the shorthand) so dark-mode swap doesn't reset background-position */
+.name-drift-a {
+  background-image: linear-gradient(
+    105deg,
+    #18181b 0%, #18181b 35%,
+    #888 46%, #fff 50%, #888 54%,
+    #18181b 65%, #18181b 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  will-change: transform;
+  animation: name-drift-a 8s ease-in-out 2s infinite, shimmer-pos 5s linear 2s infinite;
+}
+.dark .name-drift-a {
+  background-image: linear-gradient(
+    105deg,
+    #f4f4f5 0%, #f4f4f5 35%,
+    #d4d4d8 46%, #fff 50%, #d4d4d8 54%,
+    #f4f4f5 65%, #f4f4f5 100%
+  );
+}
+
+.name-drift-b {
+  background-image: linear-gradient(
+    105deg,
+    #d4d4d8 0%, #d4d4d8 35%,
+    #e4e4e7 46%, #f4f4f5 50%, #e4e4e7 54%,
+    #d4d4d8 65%, #d4d4d8 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  will-change: transform;
+  animation: name-drift-b 10s ease-in-out 2.3s infinite, shimmer-pos 5s linear 2.3s infinite;
+}
+.dark .name-drift-b {
+  background-image: linear-gradient(
+    105deg,
+    #3f3f46 0%, #3f3f46 35%,
+    #52525b 46%, #71717a 50%, #52525b 54%,
+    #3f3f46 65%, #3f3f46 100%
+  );
+}
+
+/* ── Floating background orbs ────────────────────────────────────────────── */
+@keyframes float-orb {
+  0%,  100% { transform: translate(0,    0)    scale(1);    }
+  33%        { transform: translate(50px, -35px) scale(1.07); }
+  66%        { transform: translate(-30px, 25px) scale(0.93); }
+}
+@keyframes float-orb-b {
+  0%,  100% { transform: translate(0,    0)    scale(1);    }
+  33%        { transform: translate(-45px, 30px) scale(0.94); }
+  66%        { transform: translate(35px, -20px) scale(1.06); }
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+  backface-visibility: hidden;
+  opacity: 0.35;
+}
+.dark .hero-orb { opacity: 0.55; }
+
+/* ── Marquee carousel ────────────────────────────────────────────────────── */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+@keyframes marquee-right {
+  0%   { transform: translateX(-25%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: marquee-left 55s linear infinite;
+}
+
+.marquee-track.marquee-reverse {
+  animation: marquee-right 45s linear infinite;
+}
+
+.text-banner-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: marquee-left 35s linear infinite;
+}
+
+.text-banner-track-reverse {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: marquee-right 35s linear infinite;
+  animation-delay: -17.5s;
 }
 
 /* Nav link */

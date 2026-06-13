@@ -2,12 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { Linkedin, Github, Twitter } from "lucide-react";
+import { Linkedin, Github } from "lucide-react";
 
 const SOCIALS = [
-  { icon: Linkedin, href: "https://linkedin.com/in/tu-perfil", label: "LinkedIn" },  // ── PERSONALIZA
-  { icon: Github,   href: "https://github.com/tu-usuario",    label: "GitHub"   },
-  { icon: Twitter,  href: "https://twitter.com/tu-usuario",   label: "Twitter"  },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/adrian-rodriguez-fernandez/", label: "LinkedIn" },
+  { icon: Github,   href: "https://github.com/adrirf7",                              label: "GitHub"   },
 ];
 
 export default function SocialSidebar() {
@@ -21,8 +20,15 @@ export default function SocialSidebar() {
     );
   }, []);
 
+  const handleEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    gsap.to(e.currentTarget, { scale: 1.15, duration: 0.2, ease: "power2.out" });
+  };
+  const handleLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    gsap.to(e.currentTarget, { scale: 1, duration: 0.25, ease: "power2.out" });
+  };
+
   return (
-    <div ref={sidebarRef} className="fixed right-7 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-5">
+    <div ref={sidebarRef} className="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3">
       {SOCIALS.map(({ icon: Icon, href, label }) => (
         <a
           key={label}
@@ -30,9 +36,15 @@ export default function SocialSidebar() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          className="text-zinc-300 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-200"
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
+          className="group relative flex items-center justify-center w-9 h-9 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm text-zinc-400 dark:text-zinc-500 hover:border-zinc-900 dark:hover:border-zinc-100 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-white dark:hover:bg-zinc-900 transition-colors duration-200"
         >
-          <Icon size={18} strokeWidth={1.5} />
+          <Icon size={16} strokeWidth={1.5} />
+          {/* Tooltip */}
+          <span className="pointer-events-none absolute right-11 whitespace-nowrap font-body text-[10px] tracking-widest uppercase font-semibold text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            {label}
+          </span>
         </a>
       ))}
     </div>

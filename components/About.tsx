@@ -11,6 +11,7 @@ const QUICK_TAGS = ["React", "TypeScript", "Node.js", "React Native", "MySQL", "
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
+  const photoRef   = useRef<HTMLDivElement>(null);
   const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
@@ -23,6 +24,27 @@ export default function About() {
           scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
         }
       );
+
+      // Photo parallax: floats up slightly as you scroll through the section
+      gsap.to(photoRef.current, {
+        y: -40,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+
+      // Photo subtle continuous float
+      gsap.to(photoRef.current, {
+        y: "+=8",
+        duration: 3,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -31,7 +53,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 bg-white dark:bg-zinc-950 transition-colors duration-300"
+      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
     >
       <p className="section-label about-animate mb-4">Biography</p>
       <h2 className="heading-split about-animate mb-8">
@@ -40,7 +62,7 @@ export default function About() {
 
       <div className="flex flex-col md:flex-row gap-20 items-center">
         {/* Photo */}
-        <div className="about-animate shrink-0">
+        <div className="about-animate shrink-0" ref={photoRef}>
           <div className="relative w-80 aspect-[1/1] rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 transition-colors duration-300">
             {!imgError ? (
               <Image
@@ -69,15 +91,13 @@ export default function About() {
           </p>
 
           <h3 className="about-animate font-display text-2xl md:text-3xl font-black leading-snug text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-            {/* ── PERSONALIZA ── */}
             Clean code,{" "}
             <span className="text-zinc-400 font-bold">solid product</span>
             , real impact.
           </h3>
 
           <p className="about-animate font-body text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 transition-colors duration-300">
-            {/* ── PERSONALIZA ── */}
-           I build fast, scale well and prioritize the user without sacrificing technical quality. Adaptable and always focused on writing clean, maintainable code that drives real value.
+            I build fast, scale well and prioritize the user without sacrificing technical quality. Adaptable and always focused on writing clean, maintainable code that drives real value.
           </p>
 
           <div className="about-animate flex gap-12 pt-4 border-t border-zinc-100 dark:border-zinc-800 transition-colors duration-300">

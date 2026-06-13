@@ -3,16 +3,14 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, Linkedin, Github, Figma, ArrowUpRight } from "lucide-react";
+import { Mail, Linkedin, Github, ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── PERSONALIZA ──
 const CONTACT_LINKS = [
-  { index: "01", label: "Email",    icon: Mail,     href: "mailto:tu@email.com"              },
-  { index: "02", label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/tu-perfil" },
-  { index: "03", label: "GitHub",   icon: Github,   href: "https://github.com/tu-usuario"     },
-  { index: "04", label: "Figma",    icon: Figma,    href: "https://figma.com/@tu-usuario"     },
+  { index: "01", label: "Email",    icon: Mail,     href: "mailto:rodriguezfadrian7@gmail.com"                  },
+  { index: "02", label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/adrian-rodriguez-fernandez/" },
+  { index: "03", label: "GitHub",   icon: Github,   href: "https://github.com/adrirf7"                          },
 ];
 
 export default function Contact() {
@@ -52,7 +50,7 @@ export default function Contact() {
     <section
       id="connect"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 bg-white dark:bg-zinc-950 transition-colors duration-300"
+      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
     >
       <p className="section-label contact-header mb-4">Available for Work</p>
       <h2 className="heading-split contact-header mb-8">
@@ -79,17 +77,17 @@ export default function Contact() {
 
       <div className="contact-email mt-20">
         <p className="font-body text-[10px] tracking-widest text-zinc-400 uppercase mb-3">
-          Based in Your City {/* ── PERSONALIZA ── */}
+          Based in Madrid, España
         </p>
         <div className="flex items-center gap-4">
           <a
-            href="mailto:tu@email.com"
+            href="mailto:rodriguezfadrian7@gmail.com"
             className="font-display font-black text-xl md:text-2xl uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-zinc-400 transition-colors duration-200"
           >
-            TU@EMAIL.COM {/* ── PERSONALIZA ── */}
+            RODRIGUEZFADRIAN7@GMAIL.COM
           </a>
           <a
-            href="mailto:tu@email.com"
+            href="mailto:rodriguezfadrian7@gmail.com"
             className="w-9 h-9 rounded-full border border-zinc-900 dark:border-zinc-100 flex items-center justify-center hover:bg-zinc-900 dark:hover:bg-zinc-100 hover:text-white dark:hover:text-zinc-900 text-zinc-900 dark:text-zinc-100 transition-all duration-200 flex-shrink-0"
           >
             <ArrowUpRight size={15} strokeWidth={2} />

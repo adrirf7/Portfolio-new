@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
+import Script from "next/script";
 import ThemeProvider from "@/components/ThemeProvider";
+import ParticleBackground from "@/components/ParticleBackground";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -16,8 +18,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TU NOMBRE | Web Developer",
-  description: "Portfolio personal — desarrollo web y diseño UI/UX",
+  title: "Adrian R.",
+  description: "Personal portfolio — web development and mobile app engineering.",
+  icons: {
+    icon: "/icons/256-black (1).webp",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +33,11 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${montserrat.variable} ${inter.variable}`} suppressHydrationWarning>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <Script id="theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.classList.toggle('dark',d)}catch(e){}})();`}</Script>
+        <ThemeProvider>
+          <ParticleBackground />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
