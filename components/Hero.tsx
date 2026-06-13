@@ -110,7 +110,7 @@ export default function Hero() {
       {/* CTA buttons */}
       <div ref={btnsRef} className="mt-10 flex items-center gap-4 relative z-10">
         <a href="#connect" className="btn-fill opacity-0">Collaborate →</a>
-        <a href="/_CV Adrian Rodriguez Fernandez (2).pdf" download className="btn-outline opacity-0 flex items-center gap-2">
+        <a href="/_CV_AdrianRodriguez.pdf" download className="btn-outline opacity-0 flex items-center gap-2">
           <FileText size={14} strokeWidth={1.5} />
           CV
         </a>
