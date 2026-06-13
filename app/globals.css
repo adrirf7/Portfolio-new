@@ -49,7 +49,7 @@ body {
 
 /* Split heading */
 .heading-split {
-  @apply font-display text-5xl font-black leading-tight text-zinc-900 dark:text-zinc-100;
+  @apply font-display text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-zinc-900 dark:text-zinc-100;
 }
 .heading-split .gray {
   @apply text-zinc-400 font-bold;
@@ -57,15 +57,15 @@ body {
 
 /* Pill buttons */
 .btn-fill {
-  @apply inline-flex items-center gap-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-zinc-700 dark:hover:bg-zinc-300 font-body;
+  @apply inline-flex items-center gap-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs tracking-widest font-semibold uppercase px-5 py-3 sm:px-7 sm:py-4 rounded-full transition-all duration-300 hover:bg-zinc-700 dark:hover:bg-zinc-300 font-body;
 }
 .btn-outline {
-  @apply inline-flex items-center gap-2 border border-zinc-900 text-zinc-900 dark:border-zinc-100 dark:text-zinc-100 text-xs tracking-widest font-semibold uppercase px-7 py-4 rounded-full transition-all duration-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 font-body;
+  @apply inline-flex items-center gap-2 border border-zinc-900 text-zinc-900 dark:border-zinc-100 dark:text-zinc-100 text-xs tracking-widest font-semibold uppercase px-5 py-3 sm:px-7 sm:py-4 rounded-full transition-all duration-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 font-body;
 }
 
 /* Tag pill */
 .tag-pill {
-  @apply border border-zinc-300 dark:border-zinc-700 text-sm text-zinc-900 dark:text-zinc-100 px-4 py-2 rounded-xl font-body font-medium tracking-wide hover:border-zinc-900 dark:hover:border-zinc-300 transition-colors duration-200 cursor-default;
+  @apply border border-zinc-300 dark:border-zinc-700 text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-body font-medium tracking-wide hover:border-zinc-900 dark:hover:border-zinc-300 transition-colors duration-200 cursor-default;
 }
 
 /* ── Name shimmer + drift ─────────────────────────────────────────────────── */
@@ -154,6 +154,13 @@ body {
   opacity: 0.35;
 }
 .dark .hero-orb { opacity: 0.55; }
+
+@media (max-width: 640px) {
+  .hero-orb {
+    opacity: 0.18;
+    transform: scale(0.55);
+  }
+}
 
 /* ── Marquee carousel ────────────────────────────────────────────────────── */
 @keyframes marquee-left {

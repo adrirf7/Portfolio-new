@@ -53,17 +53,17 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
+      className="grid-bg py-16 px-6 sm:px-10 md:px-16 lg:px-32 transition-colors duration-300"
     >
       <p className="section-label about-animate mb-4">Biography</p>
       <h2 className="heading-split about-animate mb-8">
         What I <span className="gray">Do</span>
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-20 items-center">
+      <div className="flex flex-col md:flex-row gap-8 md:gap-20 items-center md:items-start">
         {/* Photo */}
         <div className="about-animate shrink-0" ref={photoRef}>
-          <div className="relative w-80 aspect-[1/1] rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 transition-colors duration-300">
+          <div className="relative w-60 sm:w-72 md:w-80 aspect-[1/1] rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 transition-colors duration-300">
             {!imgError ? (
               <Image
                 src="/adri.webp"
@@ -100,7 +100,7 @@ export default function About() {
             I build fast, scale well and prioritize the user without sacrificing technical quality. Adaptable and always focused on writing clean, maintainable code that drives real value.
           </p>
 
-          <div className="about-animate flex gap-12 pt-4 border-t border-zinc-100 dark:border-zinc-800 transition-colors duration-300">
+          <div className="about-animate flex gap-8 md:gap-12 pt-4 border-t border-zinc-100 dark:border-zinc-800 transition-colors duration-300">
             <div>
               <p className="font-body text-[10px] tracking-widest text-zinc-400 uppercase mb-1">Location</p>
               <p className="font-body text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition-colors duration-300">Madrid, Spain</p>

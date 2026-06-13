@@ -21,10 +21,10 @@ function BannerRow({ reverse = false }: { reverse?: boolean }) {
       <div className={reverse ? "text-banner-track-reverse" : "text-banner-track"}>
         {ITEMS.map((word, i) => (
           <span key={i} className="flex items-center" style={{ marginRight: "2rem", flexShrink: 0 }}>
-            <span className="font-display font-black text-xl uppercase tracking-widest text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+            <span className="font-display font-black text-sm sm:text-base md:text-xl uppercase tracking-widest text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
               {word}
             </span>
-            <span className="ml-8 text-teal" style={{ fontSize: "0.6rem" }}>◆</span>
+            <span className="ml-4 md:ml-8 text-teal" style={{ fontSize: "0.6rem" }}>◆</span>
           </span>
         ))}
       </div>

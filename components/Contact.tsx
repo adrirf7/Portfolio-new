@@ -50,7 +50,7 @@ export default function Contact() {
     <section
       id="connect"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
+      className="grid-bg py-16 px-6 sm:px-10 md:px-16 lg:px-32 transition-colors duration-300"
     >
       <p className="section-label contact-header mb-4">Available for Work</p>
       <h2 className="heading-split contact-header mb-8">
@@ -75,20 +75,20 @@ export default function Contact() {
         ))}
       </div>
 
-      <div className="contact-email mt-20">
+      <div className="contact-email mt-10 md:mt-20">
         <p className="font-body text-[10px] tracking-widest text-zinc-400 uppercase mb-3">
           Based in Madrid, España
         </p>
         <div className="flex items-center gap-4">
           <a
             href="mailto:rodriguezfadrian7@gmail.com"
-            className="font-display font-black text-xl md:text-2xl uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-zinc-400 transition-colors duration-200"
+            className="font-display font-black text-sm sm:text-lg md:text-2xl uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-zinc-400 transition-colors duration-200 break-all"
           >
             RODRIGUEZFADRIAN7@GMAIL.COM
           </a>
           <a
             href="mailto:rodriguezfadrian7@gmail.com"
-            className="w-9 h-9 rounded-full border border-zinc-900 dark:border-zinc-100 flex items-center justify-center hover:bg-zinc-900 dark:hover:bg-zinc-100 hover:text-white dark:hover:text-zinc-900 text-zinc-900 dark:text-zinc-100 transition-all duration-200 flex-shrink-0"
+            className="w-10 h-10 rounded-full border border-zinc-900 dark:border-zinc-100 flex items-center justify-center hover:bg-zinc-900 dark:hover:bg-zinc-100 hover:text-white dark:hover:text-zinc-900 text-zinc-900 dark:text-zinc-100 transition-all duration-200 flex-shrink-0"
           >
             <ArrowUpRight size={15} strokeWidth={2} />
           </a>

@@ -100,7 +100,7 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
+      className="grid-bg py-16 px-6 sm:px-10 md:px-16 lg:px-32 transition-colors duration-300"
     >
       <p className="section-label skills-label mb-4">Inventory</p>
       <h2 className="heading-split skills-label mb-10">

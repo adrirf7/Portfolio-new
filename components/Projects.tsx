@@ -261,7 +261,7 @@ export default function Projects() {
     <section
       id="projects"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
+      className="grid-bg py-16 px-6 sm:px-10 md:px-16 lg:px-32 transition-colors duration-300"
     >
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6">
         <div>
@@ -279,7 +279,7 @@ export default function Projects() {
             <button
               key={f}
               onClick={() => setActive(f)}
-              className={`flex items-center gap-1.5 text-xs tracking-widest uppercase font-semibold font-body px-4 py-2 rounded-full border transition-all duration-200 ${
+              className={`flex items-center gap-1.5 text-[10px] sm:text-xs tracking-widest uppercase font-semibold font-body px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border transition-all duration-200 ${
                 active === f
                   ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-zinc-900 dark:border-zinc-100"
                   : "border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:border-zinc-900 dark:hover:border-zinc-300"
@@ -295,7 +295,7 @@ export default function Projects() {
       </div>
 
       {/* Initial 4 */}
-      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 items-stretch">
+      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10 items-stretch">
         {visible.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
@@ -303,7 +303,7 @@ export default function Projects() {
 
       {/* Extra projects — revealed on toggle */}
       {showAll && extra.length > 0 && (
-        <div ref={extraRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 items-stretch">
+        <div ref={extraRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6 items-stretch">
           {extra.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}

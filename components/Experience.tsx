@@ -95,7 +95,7 @@ export default function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className="grid-bg py-16 px-16 md:px-32 transition-colors duration-300"
+      className="grid-bg py-16 px-6 sm:px-10 md:px-16 lg:px-32 transition-colors duration-300"
     >
       <p className="section-label exp-header mb-4">Experience</p>
       <h2 className="heading-split exp-header mb-8">
@@ -113,10 +113,10 @@ export default function Experience() {
         {EXPERIENCES.map((exp, i) => (
           <div
             key={i}
-            className="exp-card grid md:grid-cols-[220px_1fr] gap-6 md:gap-16 py-12 border-b border-zinc-100 dark:border-zinc-800 transition-colors duration-300 md:pl-6"
+            className="exp-card grid md:grid-cols-[220px_1fr] gap-4 md:gap-16 py-8 md:py-12 border-b border-zinc-100 dark:border-zinc-800 transition-colors duration-300 md:pl-6"
           >
             {/* Left */}
-            <div className="exp-left flex flex-col gap-4 opacity-0">
+            <div className="exp-left flex flex-row md:flex-col gap-6 md:gap-4 opacity-0">
               <div>
                 <p className="font-body text-[10px] tracking-widest text-zinc-400 uppercase mb-1">Duration</p>
                 <p className="font-body text-sm font-semibold text-zinc-900 dark:text-zinc-100 leading-snug transition-colors duration-300">{exp.duration}</p>

@@ -25,7 +25,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="grid-bg min-h-screen pt-24 pb-16 px-16 md:px-32 flex flex-col justify-center relative overflow-hidden transition-colors duration-300"
+      className="grid-bg min-h-screen pt-20 pb-16 px-6 sm:px-10 md:px-16 lg:px-32 flex flex-col justify-center relative overflow-hidden transition-colors duration-300"
     >
       {/* Floating background orbs */}
       <div
@@ -88,7 +88,7 @@ export default function Hero() {
       </div>
 
       {/* Role + description */}
-      <div className="mt-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-24 relative z-10">
+      <div className="mt-6 md:mt-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-24 relative z-10">
         <div ref={roleRef} className="opacity-0">
           <div className="flex items-center gap-3 mb-1">
             <span className="w-8 h-px bg-zinc-900 dark:bg-zinc-100 inline-block transition-colors duration-300" />
@@ -108,7 +108,7 @@ export default function Hero() {
       </div>
 
       {/* CTA buttons */}
-      <div ref={btnsRef} className="mt-10 flex items-center gap-4 relative z-10">
+      <div ref={btnsRef} className="mt-6 md:mt-10 flex items-center gap-4 relative z-10">
         <a href="#connect" className="btn-fill opacity-0">Collaborate →</a>
         <a href="/_CV_AdrianRodriguez.pdf" download className="btn-outline opacity-0 flex items-center gap-2">
           <FileText size={14} strokeWidth={1.5} />

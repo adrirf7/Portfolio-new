@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const NAV_LINKS = [
@@ -14,6 +15,7 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     gsap.fromTo(
@@ -25,42 +27,72 @@ export default function Navbar() {
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    setMenuOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <nav
-      ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-16 py-5 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm border-b border-transparent dark:border-zinc-800/50 transition-colors duration-300"
-    >
-      {/* Logo */}
-      <a href="#hero" onClick={(e) => handleScroll(e, "#hero")} className="flex flex-col leading-tight">
-        <span className="font-display font-black text-[18px] tracking-normal uppercase">
-          {/* ── PERSONALIZA ── */}
-          <span className="text-zinc-900 dark:text-zinc-100">ADRIAN</span>{" "}
-          <span className="text-zinc-400">RODRIGUEZ</span>
-        </span>
-        <span className="font-body text-[9px] tracking-widest text-zinc-400 uppercase mt-0.5 ml-5">
-          — Developer
-        </span>
-      </a>
+    <>
+      <nav
+        ref={navRef}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-8 md:px-16 py-4 md:py-5 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm border-b border-transparent dark:border-zinc-800/50 transition-colors duration-300"
+      >
+        {/* Logo */}
+        <a href="#hero" onClick={(e) => handleScroll(e, "#hero")} className="flex flex-col leading-tight">
+          <span className="font-display font-black text-[14px] md:text-[18px] tracking-normal uppercase">
+            <span className="text-zinc-900 dark:text-zinc-100">ADRIAN</span>{" "}
+            <span className="text-zinc-400">RODRIGUEZ</span>
+          </span>
+          <span className="font-body text-[9px] tracking-widest text-zinc-400 uppercase mt-0.5 ml-5">
+            — Developer
+          </span>
+        </a>
 
-      {/* Nav links + toggle */}
-      <div className="flex items-center gap-3">
-        <div className="border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-2 flex items-center gap-1 transition-colors duration-300">
+        {/* Desktop nav links + toggle */}
+        <div className="hidden md:flex items-center gap-3">
+          <div className="border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-2 flex items-center gap-1 transition-colors duration-300">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleScroll(e, link.href)}
+                className="nav-link px-4 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <ThemeToggle />
+        </div>
+
+        {/* Mobile: theme toggle + hamburger */}
+        <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 transition-colors duration-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile fullscreen menu */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-40 md:hidden pt-16 bg-white/97 dark:bg-zinc-950/97 backdrop-blur-md flex flex-col items-center justify-center gap-10">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleScroll(e, link.href)}
-              className="nav-link px-4 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200"
+              className="font-display font-black text-3xl uppercase tracking-widest text-zinc-900 dark:text-zinc-100 hover:text-zinc-400 transition-colors duration-200"
             >
               {link.label}
             </a>
           ))}
         </div>
-        <ThemeToggle />
-      </div>
-    </nav>
+      )}
+    </>
   );
 }

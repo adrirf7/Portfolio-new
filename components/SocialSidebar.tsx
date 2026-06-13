@@ -28,7 +28,7 @@ export default function SocialSidebar() {
   };
 
   return (
-    <div ref={sidebarRef} className="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3">
+    <div ref={sidebarRef} className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col gap-3">
       {SOCIALS.map(({ icon: Icon, href, label }) => (
         <a
           key={label}
