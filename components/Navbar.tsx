@@ -80,13 +80,16 @@ export default function Navbar() {
 
       {/* Mobile fullscreen menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden pt-16 bg-white/97 dark:bg-zinc-950/97 backdrop-blur-md flex flex-col items-center justify-center gap-10">
+        <div
+          className="fixed z-40 md:hidden bg-white dark:bg-zinc-950 flex flex-col items-center justify-center gap-8"
+          style={{ top: 0, left: 0, width: "100vw", height: "100vh", overflow: "hidden" }}
+        >
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleScroll(e, link.href)}
-              className="font-display font-black text-3xl uppercase tracking-widest text-zinc-900 dark:text-zinc-100 hover:text-zinc-400 transition-colors duration-200"
+              className="font-display font-black text-2xl uppercase tracking-wide text-zinc-900 dark:text-zinc-100 hover:text-zinc-400 transition-colors duration-200"
             >
               {link.label}
             </a>

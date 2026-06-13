@@ -25,7 +25,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="grid-bg min-h-screen pt-20 pb-16 px-6 sm:px-10 md:px-16 lg:px-32 flex flex-col justify-center relative overflow-hidden transition-colors duration-300"
+      className="grid-bg min-h-screen pt-28 sm:pt-32 md:pt-36 pb-16 px-6 sm:px-10 md:px-16 lg:px-32 flex flex-col justify-start relative overflow-hidden transition-colors duration-300"
     >
       {/* Floating background orbs */}
       <div

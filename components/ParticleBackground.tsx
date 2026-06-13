@@ -11,10 +11,11 @@ interface Particle {
   r: number;
 }
 
-const COUNT       = 50;
-const MAX_DIST    = 120;
-const MAX_DIST_SQ = MAX_DIST * MAX_DIST;
-const SPEED       = 0.4;
+const COUNT_DESKTOP = 30;
+const COUNT_MOBILE  = 18;
+const MAX_DIST      = 130;
+const MAX_DIST_SQ   = MAX_DIST * MAX_DIST;
+const SPEED         = 0.35;
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -32,47 +33,59 @@ export default function ParticleBackground() {
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      const w   = window.innerWidth;
+      const h   = window.innerHeight;
+      canvas.width  = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width  = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.scale(dpr, dpr);
     };
     resize();
 
-    if (particles.current.length === 0) {
-      for (let i = 0; i < COUNT; i++) {
-        particles.current.push({
-          x:  Math.random() * canvas.width,
-          y:  Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * SPEED * 2,
-          vy: (Math.random() - 0.5) * SPEED * 2,
-          r:  Math.random() * 1.2 + 1,
-        });
-      }
+    const isMobile = window.innerWidth < 768;
+    const count = isMobile ? COUNT_MOBILE : COUNT_DESKTOP;
+
+    particles.current = [];
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    for (let i = 0; i < count; i++) {
+      particles.current.push({
+        x:  Math.random() * w,
+        y:  Math.random() * h,
+        vx: (Math.random() - 0.5) * SPEED * 2,
+        vy: (Math.random() - 0.5) * SPEED * 2,
+        r:  Math.random() * 1.0 + 0.8,
+      });
     }
 
-    window.addEventListener("resize", resize);
+    const onResize = () => {
+      resize();
+    };
+    window.addEventListener("resize", onResize);
 
     const isDark    = resolvedTheme === "dark";
-    const dotColor  = isDark ? "rgba(255,255,255,0.5)"   : "rgba(74,124,106,0.45)";
-    const lineColor = isDark ? "rgba(255,255,255,0.12)"  : "rgba(74,124,106,0.14)";
+    const dotColor  = isDark ? "rgba(255,255,255,0.45)"  : "rgba(74,124,106,0.4)";
+    const lineColor = isDark ? "rgba(255,255,255,0.10)"  : "rgba(74,124,106,0.12)";
 
     const draw = () => {
-      const w = canvas.width;
-      const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
+      const cw = window.innerWidth;
+      const ch = window.innerHeight;
+      ctx.clearRect(0, 0, cw, ch);
 
       const ps = particles.current;
 
       for (const p of ps) {
         p.x += p.vx;
         p.y += p.vy;
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
+        if (p.x < 0 || p.x > cw) p.vx *= -1;
+        if (p.y < 0 || p.y > ch) p.vy *= -1;
       }
 
-      // All lines in a single path — 1 stroke() instead of ~1200
       ctx.beginPath();
       ctx.strokeStyle = lineColor;
-      ctx.lineWidth   = 0.6;
+      ctx.lineWidth   = 0.5;
       for (let i = 0; i < ps.length; i++) {
         for (let j = i + 1; j < ps.length; j++) {
           const dx = ps[i].x - ps[j].x;
@@ -85,7 +98,6 @@ export default function ParticleBackground() {
       }
       ctx.stroke();
 
-      // All dots in a single path — 1 fill() instead of 50
       ctx.beginPath();
       ctx.fillStyle = dotColor;
       for (const p of ps) {
@@ -101,7 +113,7 @@ export default function ParticleBackground() {
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", onResize);
     };
   }, [mounted, resolvedTheme]);
 
